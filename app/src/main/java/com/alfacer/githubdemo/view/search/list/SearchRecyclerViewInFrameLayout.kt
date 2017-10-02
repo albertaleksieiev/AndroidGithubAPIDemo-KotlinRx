@@ -13,34 +13,37 @@ import com.alfacer.githubdemo.widget.view.BaseView
  * Created by albert on 10/1/17.
  */
 class SearchRecyclerViewInFrameLayout : BaseView {
-    constructor(context: Context?) : super(context){
+    constructor(context: Context?) : super(context) {
         initView()
     }
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs){
+
+    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
         initView()
     }
 
     var mRecyclerView: SearchRecyclerView? = null
     var mTextViewEmpty: TextView? = null
 
-    fun initView(){
+    fun initView() {
         mRecyclerView = findViewById(R.id.recyclerView)
         mTextViewEmpty = findViewById(R.id.textViewEmpty)
 
-        mRecyclerView?.let{
+        mRecyclerView?.let {
             val llm = LinearLayoutManager(context)
             llm.orientation = LinearLayoutManager.VERTICAL
             mRecyclerView?.setLayoutManager(llm)
         }
         showEmptyText()
     }
+
     override fun getLayoutResId(): Int = R.layout.search_recyclerview
 
-    private fun showRecyclerView(){
+    private fun showRecyclerView() {
         mRecyclerView?.visibility = View.VISIBLE
         mTextViewEmpty?.visibility = View.INVISIBLE
     }
-    private fun showEmptyText(){
+
+    private fun showEmptyText() {
         mRecyclerView?.visibility = View.INVISIBLE
         mTextViewEmpty?.visibility = View.VISIBLE
     }
@@ -50,7 +53,7 @@ class SearchRecyclerViewInFrameLayout : BaseView {
             mRecyclerView?.onLoadMoreListener = value
         }
     var onUserDetailClicked: SearchRecyclerView.OnUserDetailClicked? = null
-        set(value){
+        set(value) {
             mRecyclerView?.onUserDetailClicked = value
         }
 
@@ -58,16 +61,17 @@ class SearchRecyclerViewInFrameLayout : BaseView {
     fun newData(data: List<User>?) {
         mRecyclerView?.newData(data)
         data?.let {
-            if(data.isNotEmpty()){
+            if (data.isNotEmpty()) {
                 showRecyclerView()
             }
         }
     }
+
     fun dataChange(data: ArrayList<User>) {
         mRecyclerView?.dataChange(data)
-        if(data.isEmpty()){
+        if (data.isEmpty()) {
             showEmptyText()
-        }else{
+        } else {
             showRecyclerView()
         }
     }

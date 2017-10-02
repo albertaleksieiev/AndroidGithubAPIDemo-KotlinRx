@@ -11,9 +11,7 @@ import io.reactivex.Observable
  * Created by albert on 10/1/17.
  */
 class GithubSearchService {
-    fun searchUser(query: String, context: Context, page: Long = 1, per_page: Long = 20): Observable<SearchUserResult>{
-
-
+    fun searchUser(query: String, context: Context, page: Long = 1, per_page: Long = 20): Observable<SearchUserResult> {
 
 
         return ApiBuilder.build(context)
@@ -22,7 +20,8 @@ class GithubSearchService {
 
 
     }
-    fun searchUserByUsername(username: String, context: Context): Observable<User>{
+
+    fun searchUserByUsername(username: String, context: Context): Observable<User> {
         return ApiBuilder.build(context)
                 .create(GithubSearchAPI::class.java)
                 .searchUserByUsername(username)

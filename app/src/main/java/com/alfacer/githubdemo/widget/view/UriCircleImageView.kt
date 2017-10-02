@@ -27,7 +27,6 @@ class UriCircleImageView : CircleImageView {
     }
 
 
-
     fun display(uri: String?) {
         uri?.let {
             setupSizes(Picasso.with(context).load(uri))

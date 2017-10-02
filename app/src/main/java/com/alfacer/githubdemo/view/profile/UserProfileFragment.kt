@@ -15,8 +15,8 @@ import com.trello.rxlifecycle2.components.support.RxFragment
  * Created by albert on 10/2/17.
  */
 class UserProfileFragment : RxFragment() {
-    companion object Extra{
-        const val EXTRA_USER:String  = "user"
+    companion object Extra {
+        const val EXTRA_USER: String = "user"
     }
 
     var userprofileBinding: FragmentUserprofileBinding? = null
@@ -34,7 +34,7 @@ class UserProfileFragment : RxFragment() {
 
         viewModel = UserProfileViewModel(this)
         viewModel?.getUser(user.login)
-                ?.subscribe({userprofileBinding?.user = it},{})
+                ?.subscribe({ userprofileBinding?.user = it }, {})
 
         this.userprofileBinding?.handler = UserProfileHandler(activity)
         this.userprofileBinding?.user = user

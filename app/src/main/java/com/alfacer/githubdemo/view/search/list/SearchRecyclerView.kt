@@ -15,27 +15,27 @@ import com.alfacer.githubdemo.widget.view.BaseRecyclerView
 /**
  * Created by albert on 10/1/17.
  */
-class SearchRecyclerView: BaseRecyclerView<User> {
-    var onLoadMoreListener: OnLoadMoreListener ?= null
+class SearchRecyclerView : BaseRecyclerView<User> {
+    var onLoadMoreListener: OnLoadMoreListener? = null
     var onUserDetailClicked: OnUserDetailClicked? = null
 
-    constructor(context: Context) : super(context){
-        this.adapter = SearchRecyclerViewAdapter()
-    }
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs){
+    constructor(context: Context) : super(context) {
         this.adapter = SearchRecyclerViewAdapter()
     }
 
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
+        this.adapter = SearchRecyclerViewAdapter()
+    }
 
 
-    override fun dataChange(data:  ArrayList<User>) {
-        if(this.adapter is SearchRecyclerViewAdapter)
+    override fun dataChange(data: ArrayList<User>) {
+        if (this.adapter is SearchRecyclerViewAdapter)
             (this.adapter as SearchRecyclerViewAdapter).list = data
     }
 
     fun newData(data: List<User>?) {
         data?.let {
-            if(this.adapter is SearchRecyclerViewAdapter)
+            if (this.adapter is SearchRecyclerViewAdapter)
                 (this.adapter as SearchRecyclerViewAdapter).appendData(data)
         }
     }
@@ -44,15 +44,16 @@ class SearchRecyclerView: BaseRecyclerView<User> {
         onLoadMoreListener?.OnLoadMore(onloaded)
     }
 
-    interface OnLoadMoreListener{
+    interface OnLoadMoreListener {
         fun OnLoadMore(dataLoaded: Runnable)
     }
-    interface OnUserDetailClicked{
+
+    interface OnUserDetailClicked {
         fun OnClick(user: User)
     }
 
 
-    inner class SearchRecyclerViewAdapter: Adapter<SearchRecyclerViewAdapter.SearchViewHolder>() {
+    inner class SearchRecyclerViewAdapter : Adapter<SearchRecyclerViewAdapter.SearchViewHolder>() {
         inner class SearchViewHolder(itemView: View?) : ViewHolder(itemView) {
             var userDataBinding: SearchRecyclerviewItemBinding? = null
 
@@ -60,10 +61,12 @@ class SearchRecyclerView: BaseRecyclerView<User> {
                 userDataBinding = DataBindingUtil.bind(itemView)
             }
         }
-        fun appendData(data: List<User>){
+
+        fun appendData(data: List<User>) {
             this.list.addAll(data)
             notifyDataSetChanged()
         }
+
         var list: ArrayList<User> = ArrayList()
             set(value) {
                 this.list.clear()
@@ -71,11 +74,12 @@ class SearchRecyclerView: BaseRecyclerView<User> {
                 this.list.addAll(value)
                 notifyDataSetChanged()
             }
+
         override fun onBindViewHolder(holder: SearchViewHolder?, position: Int) {
             val user = list[position]
 
             holder?.userDataBinding?.user = user
-            holder?.itemView?.setOnTouchListener(ClickableEffectTouchListener(object: View.OnClickListener{
+            holder?.itemView?.setOnTouchListener(ClickableEffectTouchListener(object : View.OnClickListener {
                 override fun onClick(p0: View?) {
                     this@SearchRecyclerView.onUserDetailClicked?.OnClick(user)
                 }
@@ -85,8 +89,7 @@ class SearchRecyclerView: BaseRecyclerView<User> {
         override fun getItemCount(): Int
                 = list.size
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder?
-        {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder? {
             val view = LayoutInflater.from(parent.context)
                     .inflate(R.layout.search_recyclerview_item, parent, false)
             return SearchViewHolder(view)

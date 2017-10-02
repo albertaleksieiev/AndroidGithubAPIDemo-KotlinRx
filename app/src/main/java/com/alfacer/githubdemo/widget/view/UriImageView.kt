@@ -23,8 +23,8 @@ open class UriImageView : android.support.v7.widget.AppCompatImageView {
 
 
     fun setupSizes(requestCreator: RequestCreator): RequestCreator {
-            return requestCreator.fit()
-                    .centerCrop()
+        return requestCreator.fit()
+                .centerCrop()
     }
 
 

@@ -13,13 +13,14 @@ import io.reactivex.schedulers.Schedulers
  */
 class UserProfileViewModel(var fragment: UserProfileFragment) {
     val githubSearchRequestManager: GithubSearchRequestManager
-    init{
+
+    init {
         githubSearchRequestManager = GithubSearchRequestManager(fragment.activity)
     }
 
     private val TAG: String = "UserProfileViewModel"
 
-    fun getUser(username: String): Observable<User>{
+    fun getUser(username: String): Observable<User> {
         return githubSearchRequestManager.
                 searchUserByUsername(username)
                 .compose(fragment.bindToLifecycle())

@@ -2,182 +2,188 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-    <data>
-        <variable name="user" type="com.alfacer.githubdemo.model.github.User"/>
 
-        <import type="android.view.View"/>
+    <data>
+
+        <variable
+            name="user"
+            type="com.alfacer.githubdemo.model.github.User" />
+
+        <import type="android.view.View" />
+
         <variable
             name="handler"
-            type="com.alfacer.githubdemo.view.profile.UserProfileHandler"/>
+            type="com.alfacer.githubdemo.view.profile.UserProfileHandler" />
     </data>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
             <RelativeLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="300dp">
+                android:layout_height="300dp"
+                android:orientation="vertical">
+
                 <com.alfacer.githubdemo.widget.view.UriImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:uri="@{user.avatar_url}"
-                    tools:src="@drawable/loader"
+                    android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true" />
+                    app:uri="@{user.avatar_url}"
+                    tools:src="@drawable/loader" />
             </RelativeLayout>
+
             <LinearLayout
-                android:layout_marginTop="@dimen/user_profile_margin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/user_profile_margin"
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:orientation="vertical"
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_height="wrap_content">
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        tools:text="2"
-                        android:text="@{Integer.toString(user.followers)}" />
+                        android:text="@{Integer.toString(user.followers)}"
+                        tools:text="2" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="@string/followers"
                         android:layout_marginTop="@dimen/user_profile_margin"
-                        />
+                        android:gravity="center"
+                        android:text="@string/followers" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:orientation="vertical"
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_height="wrap_content">
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        tools:text="8"
-                        android:text="@{Integer.toString(user.public_repos)}"/>
+                        android:text="@{Integer.toString(user.public_repos)}"
+                        tools:text="8" />
 
                     <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/user_profile_margin"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="@string/repositories"
-                        />
+                        android:text="@string/repositories" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:orientation="vertical"
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_height="wrap_content">
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        tools:text="1"
                         android:text="@{Integer.toString(user.following)}"
-                        />
+                        tools:text="1" />
 
                     <TextView
-                        android:layout_marginTop="@dimen/user_profile_margin"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/user_profile_margin"
                         android:gravity="center"
-                        android:text="@string/following"
-                        />
+                        android:text="@string/following" />
                 </LinearLayout>
 
 
             </LinearLayout>
+
             <TextView
-                android:layout_margin="@dimen/user_profile_margin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="@{user.bio.empty || user.bio == null? View.GONE : View.VISIBLE}"
+                android:layout_margin="@dimen/user_profile_margin"
                 android:text="@{user.bio}"
-                tools:text="I am a Software Engineer with an understanding of algorithms and data structures. Skilled in developing project architecture."
-                />
+                android:visibility="@{user.bio.empty || user.bio == null? View.GONE : View.VISIBLE}"
+                tools:text="I am a Software Engineer with an understanding of algorithms and data structures. Skilled in developing project architecture." />
 
             <!--Location-->
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="@{user.location.empty || user.location == null? View.GONE : View.VISIBLE}"
+                android:orientation="horizontal"
+                android:padding="@dimen/user_profile_margin"
 
-                android:padding="@dimen/user_profile_margin">
+                android:visibility="@{user.location.empty || user.location == null? View.GONE : View.VISIBLE}">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_location_on_black_24dp"
-                    />
+                    android:src="@drawable/ic_location_on_black_24dp" />
+
                 <TextView
-                    android:layout_marginLeft="@dimen/user_profile_margin"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/user_profile_margin"
                     android:gravity="center_vertical"
-                    tools:text="New York, New York"
                     android:text="@{user.location}"
-                    />
+                    tools:text="New York, New York" />
             </LinearLayout>
             <!--Blog-->
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="@{user.blog.empty || user.blog == null? View.GONE : View.VISIBLE}"
                 android:onClick="@{(view) -> handler.onUserBlogClick(view, user) }"
-                android:padding="@dimen/user_profile_margin">
+                android:orientation="horizontal"
+                android:padding="@dimen/user_profile_margin"
+                android:visibility="@{user.blog.empty || user.blog == null? View.GONE : View.VISIBLE}">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_link_black_24dp"
-                    />
+                    android:src="@drawable/ic_link_black_24dp" />
+
                 <TextView
-                    android:layout_marginLeft="@dimen/user_profile_margin"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/user_profile_margin"
                     android:gravity="center_vertical"
-                    tools:text="albert.guru"
                     android:text="@{user.blog}"
-                    />
+                    tools:text="albert.guru" />
             </LinearLayout>
             <!--Email-->
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="@{user.email.empty || user.email == null? View.GONE : View.VISIBLE}"
                 android:onClick="@{(view) -> handler.onUserEmailClick(view, user) }"
-                android:padding="@dimen/user_profile_margin">
+                android:orientation="horizontal"
+                android:padding="@dimen/user_profile_margin"
+                android:visibility="@{user.email.empty || user.email == null? View.GONE : View.VISIBLE}">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_email_black_24dp"
-                    />
+                    android:src="@drawable/ic_email_black_24dp" />
+
                 <TextView
-                    android:layout_marginLeft="@dimen/user_profile_margin"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/user_profile_margin"
                     android:gravity="center_vertical"
-                    tools:text="albert.guru"
                     android:text="@{user.email}"
-                    />
+                    tools:text="albert.guru" />
             </LinearLayout>
 
 

@@ -15,12 +15,11 @@ import com.trello.rxlifecycle2.components.support.RxFragment
 /**
  * Created by albert on 10/1/17.
  */
-class SearchFragment: RxFragment() {
+class SearchFragment : RxFragment() {
     var searchView: SearchView? = null
     var searchRecyclerView: SearchRecyclerViewInFrameLayout? = null
 
     lateinit var viewModel: SearchViewModel
-
 
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -36,26 +35,26 @@ class SearchFragment: RxFragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
 
 
-        searchView?.let{
+        searchView?.let {
             viewModel.bindSearchViewAndGetResult(searchView!!, {
                 searchRecyclerView?.dataChange(it as ArrayList<User>)
-            }){
+            }) {
                 hadleSearchThrowable(it)
             }
         }
-        searchRecyclerView?.onLoadMoreListener = object: SearchRecyclerView.OnLoadMoreListener{
+        searchRecyclerView?.onLoadMoreListener = object : SearchRecyclerView.OnLoadMoreListener {
             override fun OnLoadMore(dataLoaded: Runnable) {
                 viewModel.loadMoreSearchResults({
                     dataLoaded.run()
                     searchRecyclerView?.newData(it)
                 },
-                {
-                    dataLoaded.run()
-                    hadleSearchThrowable(it)
-                })
+                        {
+                            dataLoaded.run()
+                            hadleSearchThrowable(it)
+                        })
             }
         }
-        searchRecyclerView?.onUserDetailClicked = object: SearchRecyclerView.OnUserDetailClicked{
+        searchRecyclerView?.onUserDetailClicked = object : SearchRecyclerView.OnUserDetailClicked {
             override fun OnClick(user: User) {
                 viewModel.showUserProfile(user)
             }
@@ -63,7 +62,7 @@ class SearchFragment: RxFragment() {
 
     }
 
-    fun hadleSearchThrowable(throwable: Throwable){
+    fun hadleSearchThrowable(throwable: Throwable) {
 
     }
 }

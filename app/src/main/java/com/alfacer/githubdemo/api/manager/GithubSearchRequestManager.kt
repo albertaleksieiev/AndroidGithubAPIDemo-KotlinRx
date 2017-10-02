@@ -14,15 +14,16 @@ class GithubSearchRequestManager(val context: Context) {
     val githubSearchService = GithubSearchService()
 
     fun searchUser(query: String, page: Long = 1, per_page: Long = 50): Observable<SearchUserResult> {
-        if(query.isNotEmpty())
+        if (query.isNotEmpty())
             return githubSearchService
                     .searchUser(query, context, page, per_page)
                     .onErrorResumeNext(Observable.empty<SearchUserResult>())
 
-        return Observable.just(SearchUserResult(0,true, ArrayList()))
+        return Observable.just(SearchUserResult(0, true, ArrayList()))
     }
+
     fun searchUserByUsername(username: String): Observable<User> {
-        if(username.isEmpty()){
+        if (username.isEmpty()) {
             return Observable.empty()
         }
         return githubSearchService

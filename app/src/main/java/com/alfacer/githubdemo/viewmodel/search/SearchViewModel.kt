@@ -19,18 +19,21 @@ import java.util.concurrent.TimeUnit
  */
 class SearchViewModel(val fragment: SearchFragment) {
     val githubSearchRequestManager: GithubSearchRequestManager
-    init{
+
+    init {
         githubSearchRequestManager = GithubSearchRequestManager(fragment.activity)
     }
+
     data class LatestSearchQuery(var query: String, var total_count: Int)
+
     var latestSearchQuery: LatestSearchQuery? = null
     var latestPage: Long = 1
 
 
     private val TAG: String? = "SEARCH_VEW MODEL"
 
-    fun showUserProfile(user: User){
-        if(fragment.activity is IMainActivity){
+    fun showUserProfile(user: User) {
+        if (fragment.activity is IMainActivity) {
             val arguments = Bundle()
             arguments.putSerializable(UserProfileFragment.EXTRA_USER, user)
             (fragment.activity as IMainActivity)
@@ -38,9 +41,9 @@ class SearchViewModel(val fragment: SearchFragment) {
         }
     }
 
-    fun loadMoreSearchResults( onNewData: ((List<User>) -> Unit)? = null,
-                               onError: ((Throwable) -> Unit) ?= null){
-        latestSearchQuery?.let{
+    fun loadMoreSearchResults(onNewData: ((List<User>) -> Unit)? = null,
+                              onError: ((Throwable) -> Unit)? = null) {
+        latestSearchQuery?.let {
             githubSearchRequestManager.searchUser(latestSearchQuery!!.query,
                     latestPage + 1)
                     .subscribeOn(Schedulers.newThread())
@@ -50,38 +53,37 @@ class SearchViewModel(val fragment: SearchFragment) {
                     .subscribe({
                         onNewData?.invoke(it)
                     },
-                    {
-                        onError?.invoke(it)
-                    })
+                            {
+                                onError?.invoke(it)
+                            })
         }
     }
 
 
     fun bindSearchViewAndGetResult(searchView: SearchView,
                                    onNewData: ((List<User>) -> Unit)? = null,
-                                   onError: ((Throwable) -> Unit) ?= null ) {
+                                   onError: ((Throwable) -> Unit)? = null) {
         RxSearchView.queryTextChanges(searchView)
                 .compose(fragment.bindToLifecycle())
                 ?.debounce(300, TimeUnit.MILLISECONDS)
-                ?.doOnError { Log.d(TAG,it.message ) }
-                ?.flatMap {
-                    query ->
-                        githubSearchRequestManager
-                                .searchUser(query.toString())
-                                .subscribeOn(Schedulers.newThread())
-                                .doOnNext {
-                                    latestPage = 1
-                                    latestSearchQuery = LatestSearchQuery(query.toString(), it.total_count)
-                                }
-                                ?.doOnError { Log.d(TAG,it.message ) }
+                ?.doOnError { Log.d(TAG, it.message) }
+                ?.flatMap { query ->
+                    githubSearchRequestManager
+                            .searchUser(query.toString())
+                            .subscribeOn(Schedulers.newThread())
+                            .doOnNext {
+                                latestPage = 1
+                                latestSearchQuery = LatestSearchQuery(query.toString(), it.total_count)
+                            }
+                            ?.doOnError { Log.d(TAG, it.message) }
                 }
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe({
                     latestPage = 1
                     onNewData?.invoke(it.items)
                 },
-                {
-                    onError?.invoke(it)
-                })
+                        {
+                            onError?.invoke(it)
+                        })
     }
 }

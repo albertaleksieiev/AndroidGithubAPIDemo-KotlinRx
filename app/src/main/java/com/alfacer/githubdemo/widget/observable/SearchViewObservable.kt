@@ -12,16 +12,16 @@ class SearchViewObservable {
 
 
             return Observable.create<String> { observer ->
-                searchView?.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
-                    override fun onQueryTextSubmit(query: String?): Boolean{
-                        query?.let{
+                searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                    override fun onQueryTextSubmit(query: String?): Boolean {
+                        query?.let {
                             observer.onNext(query)
                         }
                         return false
                     }
 
                     override fun onQueryTextChange(newText: String?): Boolean {
-                        newText?.let{
+                        newText?.let {
                             observer.onNext(newText)
                         }
                         return false

@@ -11,5 +11,6 @@ data class User(val login: String, val id: Long, val avatar_url: String,
                 var location: String? = "",
                 var blog: String? = "",
                 var email: String? = "",
-                var bio: String? = ""): Serializable
+                var bio: String? = "") : Serializable
+
 data class SearchUserResult(val total_count: Int, val incomplete_results: Boolean, val items: List<User>)
