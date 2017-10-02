@@ -13,7 +13,7 @@ import io.reactivex.Observable
 class GithubSearchRequestManager(val context: Context) {
     val githubSearchService = GithubSearchService()
 
-    fun searchUser(query: String, page: Long = 1, per_page: Long = 20): Observable<SearchUserResult> {
+    fun searchUser(query: String, page: Long = 1, per_page: Long = 50): Observable<SearchUserResult> {
         if(query.isNotEmpty())
             return githubSearchService
                     .searchUser(query, context, page, per_page)
